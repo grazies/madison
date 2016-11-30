@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Madison by grazies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Madison</h1>
+      <h2 class="project-tagline">Madison 3.0</h2>
+      <a href="https://github.com/grazies/madison" class="btn">View on GitHub</a>
+      <a href="https://github.com/grazies/madison/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/grazies/madison/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="madison" class="anchor" href="#madison" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Madison</h1>
+
+<p><a href="https://travis-ci.org/opengovfoundation/madison"><img src="https://api.travis-ci.org/opengovfoundation/madison.svg?branch=master" alt="Build Status"></a>
+<a href="https://scrutinizer-ci.com/g/opengovfoundation/madison?branch=master"><img src="https://img.shields.io/scrutinizer/g/opengovfoundation/madison.svg" alt="Scrutinizer Code Quality"></a></p>
+
+<p>Madison is an open-source, collaborative document editing platform.  While
+Madison can be used to collaborate on many different kinds of documents, the
+official version is being built with legislative and policy documents in mind.</p>
+
+<p>If you have questions about Madison, please open an issue and we will try to
+respond as soon as possible.</p>
+
+<p>Check out the <a href="https://github.com/opengovfoundation/madison/tree/master/docs">Madison Documentation</a>
+or jump right into the <a href="https://github.com/opengovfoundation/madison/issues">Issue Log</a>
+for more information on the project.</p>
+
+<p>We have created a new, public mailing list for Madison development in Google
+Groups that you might be interested in subscribing to. We'll be using this as
+the official channel for all Madison developer news, announcements, and chat
+from now on. (Though bugs should still be reported here on Github.) You can sign
+up for it here:</p>
+
+<p><a href="https://groups.google.com/forum/#!forum/madison-developers">Madison Mailing List</a></p>
+
+<p>We have also created a very short survey to find out more about the developers
+using Madison. Please take a few minutes to fill out this survey so we can
+better understand what your needs are and who is using Madison:</p>
+
+<p><a href="http://goo.gl/forms/BV4Flc0zx7">Madison Developers Survey</a></p>
+
+<h2>
+<a id="architecture" class="anchor" href="#architecture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Architecture</h2>
+
+<p>As of 3.0, Madison has been broken into two separate pieces: a standalone
+API in Laravel (PHP) (the <code>server</code> folder) and a piece for the interface / client
+side of the system (Angular / JavaScript) (the <code>client</code> folder).</p>
+
+<p>Some modules are shared across repositories, such as our
+<a href="https://github.com/opengovfoundation/madison-locales">internationalization locale files</a>.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Please take a look at the <code>docs/INSTALL.md</code> or <code>docs/INSTALL.OSX.md</code> files for
+how to install Madison.</p>
+
+<h2>
+<a id="customization" class="anchor" href="#customization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Customization</h2>
+
+<p>There are a few different mechanisms for customizing Madison to your liking.</p>
+
+<h3>
+<a id="language--i18n" class="anchor" href="#language--i18n" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Language &amp; i18n</h3>
+
+<p>The majority of the language in the system is defined in the <code>client/app/locales/</code>
+folder within relevant JSON files, defined for each supported language. If you
+create a file that matches the necessary language name in
+<code>client/app/locales/custom/</code> this will overwrite what is set as default in the base
+language files.</p>
+
+<h3>
+<a id="style" class="anchor" href="#style" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Style</h3>
+
+<p>Any stylesheets placed within the <code>client/app/sass/custom/</code> folder will be processed
+during the build and can overwrite any existing styles. You can also change sass
+variables here. Reference the sass config files in <code>client/app/sass/config/</code> to see
+what variables can be changed.</p>
+
+<h2>
+<a id="testing-suite" class="anchor" href="#testing-suite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing Suite</h2>
+
+<p>To run the full test suite for both client and server, run the <code>make test</code>
+command. Some setup is necesary, see below.</p>
+
+<h3>
+<a id="server-testing" class="anchor" href="#server-testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server Testing</h3>
+
+<p>To run the tests, you will need to make sure to have a database created called
+<code>madison_testing</code>. Then you will need to run all migrations on that database
+with the command <code>php artisan migrate --database=mysql_testing</code>.</p>
+
+<p>To run only server tests, the command is <code>make test-server</code>.</p>
+
+<h3>
+<a id="client-testing" class="anchor" href="#client-testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Client Testing</h3>
+
+<p>For client testing to work properly, you need to have a vhost set up to be
+serving the client at <code>localhost:8888</code> with the API (server folder)
+mounted at <code>/api</code>. This vhost should also set two ENV vars:</p>
+
+<ul>
+<li><code>TESTING=true</code></li>
+<li><code>DB_CONNECTION=mysql_testing</code></li>
+</ul>
+
+<p>For an example of what this config should look like for Apache, look at
+<code>travis/apache.conf</code>. This is the configuration file that is used
+for running client tests on travis. Don't forget to add the domain to
+<code>/etc/hosts</code> as well!</p>
+
+<p>Make sure you have run <code>make deps</code> to have all dependencies installed. Once that
+is done you should be able to run <code>make selenium-start</code> to install and start
+your local Selenium server.</p>
+
+<p>To run the client tests only, the command is <code>make test-client</code>.</p>
+
+<h2>
+<a id="how-to-help" class="anchor" href="#how-to-help" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to help</h2>
+
+<ul>
+<li>Open an issue, claim an issue, comment on an issue, or submit a pull request to resolve one</li>
+<li>Document Madison - wiki documentation, installation guide, or docblocks internally</li>
+<li>Clean up existing code - I'm sure we've taken shortcuts or added lazy code somewhere.</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/grazies/madison">Madison</a> is maintained by <a href="https://github.com/grazies">grazies</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
